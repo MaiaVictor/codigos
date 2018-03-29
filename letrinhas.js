@@ -52,8 +52,13 @@ window.onload = () => {
       canvas.height = 32;
       canvas.onclick = () => {
         if (key) {
-          ptbr.value += key;
+          var pre = ptbr.value.substr(0, ptbr.selectionStart);
+          var pos = ptbr.value.substr(ptbr.selectionEnd);
+          ptbr.value = pre + key + pos;
           refresh();
+          setTimeout(() => {
+            ptbr.setSelectionRange(pre.length + 1, pre.length + 1);
+          }, 100);
         }
       };
       ctx.clearRect(0, 0, canvas.width, canvas.height);
